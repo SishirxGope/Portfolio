@@ -29,6 +29,14 @@ const PROJECTS = [
   }
 ];
 
+const getAssetUrl = (path: string) => {
+  if (path.startsWith('/')) {
+    const base = import.meta.env.BASE_URL;
+    return base.endsWith('/') ? `${base}${path.slice(1)}` : `${base}${path}`;
+  }
+  return path;
+};
+
 export function ProjectGrid() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -40,7 +48,7 @@ export function ProjectGrid() {
               {/* Cyan overlay that fades on hover */}
               <div className="absolute inset-0 bg-wintry/20 mix-blend-overlay group-hover:opacity-0 transition-opacity duration-700 z-10" />
               <img 
-                src={project.image} 
+                src={getAssetUrl(project.image)} 
                 alt={project.name} 
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 filter grayscale group-hover:grayscale-0" 
               />
